@@ -1,0 +1,10 @@
+@extends('Home.master')
+@section('title','صفحه اصلی')
+@section('content.home')
+    @include('Home.slide')
+    @include('Home.banner')
+    @include('Home.NewProduct')
+    @include('Home.banner2')
+    @include('Home.blog')
+    @include('Home.shipping')
+@endsection
