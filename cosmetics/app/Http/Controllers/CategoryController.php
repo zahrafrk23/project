@@ -93,7 +93,14 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-
+    public function destroy(Category $category)
+    {
+        $thumbnail = public_path($category->thumbnail);
+        unlink($thumbnail);
+        $category->delete();
+        return back();
+    }
+ 
 
 
 }
