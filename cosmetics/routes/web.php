@@ -12,6 +12,13 @@
 */
 
 Route::get('/', 'IndexController@index');
+Route::get('/about', 'IndexController@about')->name('about');
+Route::get('/rule', 'IndexController@rule')->name('rule');
+Route::get('/faq', 'IndexController@faq')->name('faq');
+Route::get('/contact', 'ContactController@index')->name('contact');
+Route::post('/contact/create', 'ContactController@create')->name('contact.create.index');
+route::get('/article', 'ArticleController@index')->name('article');
+route::get('/article/{articleSlug}', 'ArticleController@single');
 route::get('/product', 'ProductController@product')->name('product');
 route::get('/product/{productSlug}', 'ProductController@single');
 Route::get('/cart', 'CartController@index')->name('cart');
@@ -34,11 +41,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth:web', 'ChekAdmin'],
     Route::get('comment/unsuccess', 'CommentController@unsuccess')->name('unsuccess');
     Route::resource('/comment', 'CommentController');
     Route::resource('/contact', 'ContactController');
+   
 });
 route::group(['middleware' => 'auth', 'prefix' => 'panel'], function () {
     Route::get('/', 'UserPanelController@index')->name('user.panel');
     Route::get('/add/address/{user_id}', 'CartController@address')->name('add.address');
     Route::post('/address', 'CartController@add_address')->name('address');
+    Route::put('/user/edit/{userid}','UserPanelController@update')->name('user.panel.update');
 });
 
 Auth::routes();
