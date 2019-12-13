@@ -30,6 +30,44 @@ class CategoryController extends Controller
         $category = Category::all()->where('parent_id', 0);
         return view('admin.category.create', compact('category'));
     }
+	    /**
+     * Store a newly created resource in storage.
+     *
+     * @param CategoryRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CategoryRequest $request)
+    {
+        $file = $request->file('thumbnail');
+        $thumbnail = $this->UploadImage($file);
+        Category::create(array_merge($request->all(), ['thumbnail' => $thumbnail]));
+        return redirect(route('category.index'));
+    }
+    private function UploadImage($file)
+    {
+        $imagePath = "/upload/images/category";
+        $fileName = $file->getClientOriginalName();
+        $file->move(public_path($imagePath), $fileName);
+        return $imagePath . '/' . $fileName;
+    }
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Category $category)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+ 
 
 
 }
