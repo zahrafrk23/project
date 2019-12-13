@@ -67,7 +67,33 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
- 
+	    public function edit(Category $category)
+    {
+        return view('admin.category.edit', compact('category'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Category $category)
+    {
+        $input = $request->all();
+        $category->update($input);
+        return redirect(route('category.index'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Category $category
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+
 
 
 }
