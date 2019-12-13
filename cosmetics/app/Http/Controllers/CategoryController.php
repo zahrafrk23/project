@@ -25,4 +25,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+	    public function create()
+    {
+        $category = Category::all()->where('parent_id', 0);
+        return view('admin.category.create', compact('category'));
+    }
+
+
+}
  
