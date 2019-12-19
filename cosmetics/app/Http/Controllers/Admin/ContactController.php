@@ -74,6 +74,17 @@ class ContactController extends Controller
         //
     }
 
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Contact $contact
+     * @return \Illuminate\Http\Response
+     * @throws \Exception
+     */
+    public function destroy(Contact $contact)
+    {
+        $contact->delete();
+        return back();
+    }
 
 }
