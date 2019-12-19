@@ -1,0 +1,62 @@
+@extends('admin.Layout.master')
+@section('content')
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+         ایجاد گالری تصاویر
+        </h1>
+        <hr>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <!-- Info boxes -->
+
+        <div class="row">
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-12 col-sm-6 col-xs-12">
+                <form action="{{route('gallery.create.add')}}" method="post" enctype="multipart/form-data">
+                    {{csrf_field()}}
+                    <input type="hidden" value="{{$idProduct}}" name="idproduct">
+                    <input type="file" class="btn btn-sm btn-default" name="gallery" style="float: right">
+                    <button class="btn btn-sm btn-dark" style="margin: 0 10px;">افزودن</button>
+                </form>
+            </div>
+
+            <div class="col-lg-5">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">تصویر</th>
+                        <th scope="col">تنظمیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($gallery as $item)
+                        <tr>
+                            <td>
+                                <div class="col-lg-4">
+                                    <a href="{{$item->images}}" target="_blank"><img src="{{$item->images}}" style="width: 100%;"></a>
+                                </div>
+                            </td>
+                            <td>
+                                <form action="{{route('gallery.delete',['id' => $item->id])}}" method="post">
+                                    {{method_field('delete')}}
+                                    {{csrf_field()}}
+                                    <input type="hidden" value="{{$item->id}}" name="id">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-danger">حذف</button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+
+
+@endsection
