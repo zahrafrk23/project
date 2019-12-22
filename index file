@@ -1,0 +1,42 @@
+@extends('admin.Layout.master')
+@section('content')
+    <div class="col-lg-12">
+        <h3>همه مقاله ها</h3>
+        <hr>
+    </div>
+
+    <div class="col-lg-12">
+        <table class="table table-striped product-table">
+            <thead>
+            <tr>
+                <th scope="col">آیدی</th>
+                <th scope="col">عنوان مقاله</th>
+                <th scope="col">تعداد بازدید</th>
+                <th scope="col">تعداد نظرات</th>
+                <th scope="col">تنظمیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($article as $item)
+                <tr>
+                    <th>{{$item->id}}</th>
+                    <td><a href="{{$item->path()}}">{{$item->title}}</a></td>
+                    <td>{{$item->viewCount}}</td>
+                    <td>{{$item->commentCount}}</td>
+                    <td>
+                        <form action="{{route('article.destroy', $item)}}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{route('article.edit',['id'=>$item->id])}}" class="btn btn-primary">ویرایش</a>
+                                <button class="btn btn-danger">حذف</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+@endsection
