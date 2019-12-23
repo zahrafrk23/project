@@ -1,0 +1,39 @@
+@extends('admin.Layout.master')
+@section('content')
+    <div class="col-lg-12">
+        <h3>همه محصولات</h3>
+    </div>
+
+    <div class="col-lg-12">
+        <table class="table table-striped product-table">
+            <thead>
+            <tr>
+                <th scope="col">آیدی محصول</th>
+                <th scope="col">نام محصول</th>
+                <th scope="col">قیمت</th>
+                <th scope="col">تنظمیات</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($product as $item)
+                <tr>
+                    <th>{{$item->id}}</th>
+                    <td><a href="{{$item->path()}}">{{$item->title}}</a></td>
+                    <td>{{$item->price}}</td>
+                    <td>
+                        <form action="{{route('product.destroy',$item)}}" method="post">
+                           @method('DELETE')
+                            @csrf
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{route('product.edit',$item)}}" class="btn btn-primary">ویرایش</a>
+                                <button class="btn btn-danger">حذف</button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+@endsection
